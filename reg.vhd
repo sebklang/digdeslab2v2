@@ -13,18 +13,16 @@ entity reg is
 end entity reg;
 
 architecture behavioral of reg is
-
-    signal store   : STD_LOGIC_VECTOR(width-1 DOWNTO 0);
    
 begin
-    process(clk, resetn, loadEnable)
+    process(clk, resetn)
     begin
         if (resetn = '0') then
-            dataOut <= (others => '0');
-            store <= (others => '0');       
-        elsif (rising_edge(clk) and loadEnable = '1') then
-            dataOut <= dataIn;
-            store <= dataIn;
+            dataOut <= (others => '0');     
+        elsif (rising_edge(clk)) then
+		if (loadEnable = '1') then
+           		 dataOut <= dataIn;
+		end if;
         end if;
     end process;
 end behavioral;

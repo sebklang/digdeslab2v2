@@ -113,16 +113,15 @@ component mock_controller
 end component;
 
 signal opcode_signal: std_logic_vector(3 downto 0);
-signal e_flag_signal: std_logic;
+signal e_flag_out_signal: std_logic;
 
 signal decoEnable_signal: std_logic;
-signal decoSel_signal: std_logic;
+signal decoSel_signal: std_logic_vector(1 downto 0);
 signal pcSel_signal: std_logic;
 signal pcLd_signal: std_logic;
 signal jAddrSel_signal: std_logic;
 signal imRead_signal: std_logic;
 signal dmRead_signal: std_logic;
-signal dmWrite_signal: std_logic;
 signal dmWrite_signal: std_logic;
 signal aluOp_signal: std_logic_vector(1 downto 0);
 signal flagLd_signal: std_logic;
@@ -130,42 +129,72 @@ signal accSel_signal: std_logic;
 signal accLd_signal: std_logic;
 signal dsLd_signal: std_logic;
 
+signal imDataOut_signal: std_logic_vector(11 downto 0);
+signal dmDataOut_signal: std_logic_vector(7 downto 0);
+signal accOut_signal: std_logic_vector(7 downto 0);
+signal busOut_signal: std_logic_vector(7 downto 0);
+signal aluOut_signal: std_logic_vector(7 downto 0);
+signal dsOut_signal: std_logic_vector(7 downto 0);
+
 signal pcOut_signal: std_logic_vector(7 downto 0);
+
+signal pcIncrOut_signal: std_logic_vector(7 downto 0);
+signal jAddrAdderOut_signal: std_logic_vector(7 downto 0);
+signal jAddrAdderB_signal: std_logic_vector(7 downto 0);
+signal jumpAddr_signal: std_logic_vector(7 downto 0);
+signal nextPC_signal: std_logic_vector(7 downto 0);
+
+signal E_flag_signal: std_logic;
+signal C_flag_signal: std_logic;
+signal Z_flag_signal: std_logic;
+
+signal accSelMuxOut_signal: std_logic_vector(7 downto 0);
+
+signal tempFlagVecEOut: std_logic_vector(0 downto 0);
+signal tempFlagVecE: std_logic_vector(0 downto 0);
+signal tempFlagVecC: std_logic_vector(0 downto 0);
+signal tempFlagVecZ: std_logic_vector(0 downto 0);
 
 begin
 
     controller: mock_controller
         port map(
-            clk,
-            resetn,
-            master_load_enable,
-            opcode_signal,
-            e_flag_signal,
+            clk => clk,
+            resetn => resetn,
+            master_load_enable => master_load_enable,
+            opcode => opcode_signal,
+            e_flag => e_flag_out_signal,
 
-            decoEnable_signal,
-            decoSel_signal,
-            pcSel_signal,
-            pcLd_signal,
-            jAddrSel_signal,
-            imRead_signal,
-            dmRead_signal,
-            dmWrite_signal,
-            aluOp_signal,
-            flagLd_signal,
-            accSel_signal,
-            accLd_signal,
-            dsLd_signal
+            decoEnable => decoEnable_signal,
+            decoSel => decoSel_signal,
+            pcSel => pcSel_signal,
+            pcLd => pcLd_signal,
+            jAddrSel => jAddrSel_signal,
+            imRead => imRead_signal,
+            dmRead => dmRead_signal,
+            dmWrite => dmWrite_signal,
+            aluOp => aluOp_signal,
+            flagLd => flagLd_signal,
+            accSel => accSel_signal,
+            accLd => accLd_signal,
+            dsLd => dsLd_signal
         );
 
     internalBus: proc_bus
         port map(
-            
+            decoEnable => decoEnable_signal,
+            decoSel => decoSel_signal,
+            imDataOut => imDataOut_signal(7 downto 0),
+            dmDataOut => dmDataOut_signal,
+            accOut => accOut_signal,
+            extIn => extIn,
+            busOut => busOut_signal
         );
 
     instructionMemory: memory
-        generic map(DATA_WIDTH => 12);
+        generic map(DATA_WIDTH => 12)
         port map(
-            clk => clk,
+            clk,
             readEn => imRead_signal,
             writeEn => '0',
             address => pcOut_signal,
@@ -173,7 +202,157 @@ begin
             dataOut => imDataOut_signal
         );
     opcode_signal <= imDataOut_signal(11 downto 8);
-    imDataOut2seg <= imDataOut_signal;
     
+    dataMemory: memory
+        generic map(DATA_WIDTH => 8)
+        port map(
+            clk,
+            readEn => dmRead_signal,
+            writeEn => dmWrite_signal,
+            address => busOut_signal,
+            dataIn => accOut_signal,
+            dataOut => dmDataOut_signal
+        );
+
+    pcIncrAdder: rca
+        port map(
+            a => pcOut_signal,
+            b => "00000001",
+            cin => '0',
+            cout => open,
+            s => pcIncrOut_signal
+        );
+
+    jAddrAdderB_signal <= not ('0' & busOut_signal(6 downto 0)) when busOut_signal(7) = '1'
+                         else ('0' & busOut_signal(6 downto 0));
+    jAddrAdder: rca
+        port map(
+            a => pcOut_signal,
+            b => jAddrAdderB_signal,
+            cin => busOut_signal(7),
+            cout => open,
+            s => jAddrAdderOut_signal
+        );
+
+    jAddrMux: mux2
+        port map(
+            s => jAddrSel_signal,
+            i0 => jAddrAdderOut_signal,
+            i1 => busOut_signal,
+            o => jumpAddr_signal
+        );
+
+    pcSelMux: mux2
+        port map(
+            s => pcSel_signal,
+            i0 => pcIncrOut_signal,
+            i1 => jumpAddr_signal,
+            o => nextPC_signal
+        );
+
+    PC_reg: reg
+        generic map(
+            width => 8
+        )
+        port map(
+            clk => clk,
+            resetn => resetn,
+            loadEnable => pcLd_signal,
+            dataIn => nextPC_signal,
+            dataOut => pcOut_signal
+        );
+
+    alu: alu_wRCA
+        port map(
+            alu_inA => accOut_signal,
+            alu_inB => busOut_signal,
+            alu_op => aluOp_signal,
+
+            alu_out => aluOut_signal,
+            C => C_flag_signal,
+            E => E_flag_signal,
+            Z => Z_flag_signal
+        );
+
+    accSelMux: mux2
+        port map(
+            s => accSel_signal,
+            i0 => aluOut_signal,
+            i1 => busOut_signal,
+            o => accSelMuxOut_signal
+        );
+
+    ACC_reg: reg
+        generic map(
+            width => 8
+        )
+        port map(
+            clk => clk,
+            resetn => resetn,
+            loadEnable => accLd_signal,
+            dataIn => accSelMuxOut_signal,
+            dataOut => accOut_signal
+        );
+
+    DS_reg: reg
+        generic map(
+            width => 8
+        )
+        port map(
+            clk => clk,
+            resetn => resetn,
+            loadEnable => dsLd_signal,
+            dataIn => accOut_signal,
+            dataOut => ds2seg
+        );
+
+    tempFlagVecE(0) <= E_flag_signal;
+    tempFlagVecEOut(0) <= e_flag_out_signal;
+    E_reg: reg
+        generic map(
+            width => 1
+        )
+        port map(
+            clk => clk,
+            resetn => resetn,
+            loadEnable => flagLd_signal,
+            dataIn => tempFlagVecE,
+            dataOut => tempFlagVecEOut
+        );
+
+    tempFlagVecC(0) <= C_flag_signal;
+    C_reg: reg
+        generic map(
+            width => 1
+        )
+        port map(
+            clk => clk,
+            resetn => resetn,
+            loadEnable => flagLd_signal,
+            dataIn => tempFlagVecC,
+            dataOut => open
+        );
+    
+    tempFlagVecZ(0) <= Z_flag_signal;
+    Z_reg: reg
+        generic map(
+            width => 1
+        )
+        port map(
+            clk => clk,
+            resetn => resetn,
+            loadEnable => flagLd_signal,
+            dataIn => tempFlagVecZ,
+            dataOut => open
+        );
+
+
+    pc2Seg <= pcOut_signal;
+    imDataOut2seg <= imDataOut_signal;
+    dmDataOut2seg <= dmDataOut_signal;
+    aluOut2seg <= aluOut_signal;
+    acc2seg <= accOut_signal;
+    ds2seg <= dsOut_signal;
+    busOut2seg <= busOut_signal;
 
 end structural;

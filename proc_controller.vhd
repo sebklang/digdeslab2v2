@@ -27,3 +27,7 @@ entity proc_controller is
         dsLd: out std_logic
     );
 end proc_controller;
+
+architecture behavioral of proc_controller is
+
+end behavioral;

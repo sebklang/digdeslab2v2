@@ -14,6 +14,11 @@ force decoEnable '1'
 force decoSel 2'b00
 run 100ns
 
+
+force extIn 8'b00000000
+force imDataOut 8'b11110000
+run 100ns
+
 force decoSel 2'b01
 run 100ns
 

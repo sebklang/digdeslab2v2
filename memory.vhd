@@ -41,14 +41,14 @@ end function;
 signal store : MEMORY_ARRAY := init_memory_wfile(INIT_FILE);
 
 begin  
-    Read0: process(clk, readEn, address)
+    Read0: process(clk)
     begin
         if (rising_edge(clk) and readEn = '1') then
 	    dataOut <= store(to_integer(unsigned(address)));           
         end if;
     end process Read0;
 
-    Write0: process(clk, writeEn, address, dataIn)
+    Write0: process(clk)
     begin
         if (rising_edge(clk) and writeEn = '1') then
 	    store(to_integer(unsigned(address))) <= dataIn;           
