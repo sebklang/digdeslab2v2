@@ -1,0 +1,106 @@
+Z:/lab2/alu_wRCA.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\alu_wRCA.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package ATTRIBUTES
+-- Loading package std_logic_misc
+-- Compiling entity alu_wRCA
+-- Compiling architecture structural of alu_wRCA
+-- Loading entity rca
+-- Loading entity cmp
+
+} {} {}} Z:/lab2/reg.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\reg.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity reg
+-- Compiling architecture behavioral of reg
+
+} {} {}} Z:/lab2/cmp.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\cmp.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package ATTRIBUTES
+-- Loading package std_logic_misc
+-- Compiling entity cmp
+-- Compiling architecture structural of cmp
+
+} {} {}} Z:/lab2/tristate_buffer.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\tristate_buffer.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity tristate_buffer
+-- Compiling architecture behavioral of tristate_buffer
+
+} {} {}} Z:/lab2/chacc_pkg.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/chacc_pkg.vhd
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package chacc_pkg
+
+} {} {}} Z:/lab2/mux2.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\mux2.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity mux2
+-- Compiling architecture dataflow of mux2
+
+} {} {}} Z:/lab2/proc_bus.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\proc_bus.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package chacc_pkg
+-- Compiling entity proc_bus
+-- Compiling architecture behavioral of proc_bus
+
+} {} {}} Z:/lab2/mock_controller.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\mock_controller.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package chacc_pkg
+-- Compiling entity mock_controller
+-- Compiling architecture Behavioral of mock_controller
+
+} {} {}} Z:/lab2/rca.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\rca.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity rca
+-- Compiling architecture structural of rca
+-- Loading entity fa
+
+} {} {}} Z:/lab2/proc_controller.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\proc_controller.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package chacc_pkg
+-- Compiling entity proc_controller
+
+} {} {}} Z:/lab2/fa.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\fa.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity fa
+-- Compiling architecture dataflow of fa
+
+} {} {}} Z:/lab2/memory.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none {Z:\lab2\memory.vhd}
+QuestaSim-64 vcom 10.4a Compiler 2015.03 Mar 25 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity memory
+-- Compiling architecture behavioral of memory
+
+} {} {}}

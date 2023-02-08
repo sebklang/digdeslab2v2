@@ -1,0 +1,174 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity EDA322_processor is
+    generic (dInitFile : string := "d_memory_lab2.mif";
+             iInitFile : string := "i_memory_lab2.mif");
+    port(
+        clk                : in  std_logic;
+        resetn             : in  std_logic;
+        master_load_enable : in  std_logic;
+        extIn              : in  std_logic_vector(7 downto 0);
+        pc2seg             : out std_logic_vector(7 downto 0);
+        imDataOut2seg      : out std_logic_vector(11 downto 0);
+        dmDataOut2seg      : out std_logic_vector(7 downto 0);
+        aluOut2seg         : out STD_LOGIC_VECTOR(7 downto 0);
+        acc2seg            : out std_logic_vector(7 downto 0);
+        busOut2seg         : out std_logic_vector(7 downto 0);
+        ds2seg             : out std_logic_vector(7 downto 0)
+    );
+end EDA322_processor;
+
+architecture structural of EDA322_processor is
+
+component reg
+    generic (width: integer := 8);
+    port (
+        clk: in std_logic;
+        resetn: in std_logic;
+        loadEnable: in std_logic;
+        dataIn: in std_logic_vector(width-1 downto 0);
+        dataOut: out std_logic_vector(width-1 downto 0)
+    );
+end component;
+
+component alu_wRCA
+    port(
+        alu_inA, alu_inB: in std_logic_vector(7 downto 0);
+        alu_op: in std_logic_vector(1 downto 0);
+        alu_out: out std_logic_vector(7 downto 0);
+        C: out std_logic;
+        E: out std_logic;
+        Z: out std_logic
+    );
+end component;
+
+component mux2
+    generic (d_width: integer := 8);
+    port (
+        s : in std_logic;
+        i0 : in std_logic_vector(d_width-1 downto 0);
+        i1 : in std_logic_vector(d_width-1 downto 0);
+        o : out std_logic_vector(d_width-1 downto 0)
+    );
+end component;
+
+component proc_bus
+    port (
+        decoEnable : in std_logic;
+        decoSel    : in std_logic_vector(1 downto 0);
+        imDataOut   : in std_logic_vector(7 downto 0);
+        dmDataOut     : in std_logic_vector(7 downto 0);
+        accOut     : in std_logic_vector(7 downto 0);
+        extIn      : in std_logic_vector(7 downto 0);
+        busOut     : out std_logic_vector(7 downto 0)
+    );
+end component;
+
+component rca
+    port(
+        a, b: in std_logic_vector(7 downto 0);
+        cin: in std_logic;
+        cout: out std_logic;
+        s: out std_logic_vector(7 downto 0)
+    );
+end component;
+
+component memory
+    generic (DATA_WIDTH : integer := 8;
+             ADDR_WIDTH : integer := 8;
+             INIT_FILE : string := "i_memory_lab2.mif");
+    port (
+        clk     : in std_logic;
+        readEn    : in std_logic;
+        writeEn   : in std_logic;
+        address : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+        dataIn  : in std_logic_vector(DATA_WIDTH-1 downto 0);
+        dataOut : out std_logic_vector(DATA_WIDTH-1 downto 0)
+    );
+end component;
+
+component mock_controller
+    port (
+        clk: in std_logic;
+        resetn: in std_logic;
+        master_load_enable: in std_logic;
+        opcode: in std_logic_vector(3 downto 0);
+        e_flag: in std_logic;
+
+        decoEnable: out std_logic;
+        decoSel: out std_logic_vector(1 downto 0);
+        pcSel: out std_logic;
+        pcLd: out std_logic;
+        jAddrSel: out std_logic;
+        imRead: out std_logic;
+        dmRead: out std_logic;
+        dmWrite: out std_logic;
+        aluOp: out std_logic_vector(1 downto 0);
+        flagLd: out std_logic;
+        accSel: out std_logic;
+        accLd: out std_logic;
+        dsLd: out std_logic
+    );
+end component;
+
+signal opcode_signal: std_logic_vector(3 downto 0);
+signal e_flag_signal: std_logic;
+
+signal decoEnable_signal: std_logic;
+signal decoSel_signal: std_logic;
+signal pcSel_signal: std_logic;
+signal pcLd_signal: std_logic;
+signal jAddrSel_signal: std_logic;
+signal imRead_signal: std_logic;
+signal dmRead_signal: std_logic;
+signal dmWrite_signal: std_logic;
+signal dmWrite_signal: std_logic;
+signal aluOp_signal: std_logic_vector(1 downto 0);
+signal flagLd_signal: std_logic;
+signal accSel_signal: std_logic;
+signal accLd_signal: std_logic;
+signal dsLd_signal: std_logic;
+
+signal pcOut_signal: std_logic_vector(7 downto 0);
+
+begin
+
+    controller: mock_controller
+        port map(
+            clk,
+            resetn,
+            master_load_enable,
+            opcode_signal,
+            e_flag_signal,
+
+            decoEnable_signal,
+            decoSel_signal,
+            pcSel_signal,
+            pcLd_signal,
+            jAddrSel_signal,
+            imRead_signal,
+            dmRead_signal,
+            dmWrite_signal,
+            aluOp_signal,
+            flagLd_signal,
+            accSel_signal,
+            accLd_signal,
+            dsLd_signal
+        );
+
+    instructionMemory: memory
+        generic map(DATA_WIDTH => 12);
+        port map(
+            clk => clk,
+            readEn => imRead_signal,
+            writeEn => '0',
+            address => pcOut_signal,
+            dataIn => "000000000000",
+            dataOut => imDataOut_signal
+        );
+    opcode_signal <= imDataOut_signal(11 downto 8);
+    imDataOut2seg <= imDataOut_signal;
+    
+
+end structural;

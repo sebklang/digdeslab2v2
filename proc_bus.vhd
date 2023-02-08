@@ -1,0 +1,48 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+library work;
+use work.chacc_pkg.all;
+
+entity proc_bus is
+    port (
+        decoEnable : in std_logic;
+        decoSel    : in std_logic_vector(1 downto 0);
+        imDataOut   : in std_logic_vector(7 downto 0);
+        dmDataOut     : in std_logic_vector(7 downto 0);
+        accOut     : in std_logic_vector(7 downto 0);
+        extIn      : in std_logic_vector(7 downto 0);
+        busOut     : out std_logic_vector(7 downto 0)
+    );
+end proc_bus;
+
+architecture behavioral of proc_bus is
+signal decoOut : std_logic_vector(3 downto 0);
+component tristate_buffer
+    port(
+        x: in std_logic_vector;
+       en: in std_logic;
+        y: out std_logic_vector
+    );
+end component;
+begin
+    process(decoEnable, decoSel)
+    begin
+        if (decoEnable /= '1') then
+            decoOut <= "0000";
+        else
+            case decoSel is
+                when "00" => decoOut <= "0001";
+                when "01" => decoOut <= "0010";
+                when "10" => decoOut <= "0100";
+                when "11" => decoOut <= "1000";
+                when others => decoOut <= "0000";
+            end case;
+        end if;
+    end process;
+
+    imDataBuffer: tristate_buffer port map(imDataOut, decoOut(0), busOut);
+    dmDataBuffer: tristate_buffer port map(dmDataOut, decoOut(1), busOut);
+    accBuffer:    tristate_buffer port map(accOut,    decoOut(2), busOut);
+    extBuffer:    tristate_buffer port map(extIn,     decoOut(3), busOut);
+end behavioral;
