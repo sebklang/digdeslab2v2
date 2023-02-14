@@ -27,3 +27,34 @@ entity proc_controller is
         dsLd: out std_logic
     );
 end proc_controller;
+
+architecture behavioral of proc_controller is
+
+type state_type is (FE, DE1, DE2, EX, ME);
+signal curr_state: state_type;
+signal next_state: state_type;
+
+begin
+    fsm : process(clk, resetn)
+    begin
+        if (resetn = '0') then
+            curr_state <= FE;
+        elsif (rising_edge(clk) and master_load_enable = '1') then
+            curr_state <= next_state;
+        end if;
+    end process;
+
+    next_state_process: process(curr_state, opcode)
+    begin
+
+    end process;
+end behavioral;
+
+
+
+
+
+
+
+
+
