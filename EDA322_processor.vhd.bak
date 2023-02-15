@@ -88,7 +88,7 @@ component memory
     );
 end component;
 
-component mock_controller
+component proc_controller
     port (
         clk: in std_logic;
         resetn: in std_logic;
@@ -317,7 +317,7 @@ begin
             resetn => resetn,
             loadEnable => flagLd_signal,
             dataIn => tempFlagVecE,
-            dataOut => tempFlagVecOut
+            dataOut => tempFlagVecEOut
         );
 
     tempFlagVecC(0) <= C_flag_signal;

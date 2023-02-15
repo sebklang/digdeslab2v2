@@ -80,9 +80,15 @@ begin
                 imRead <= '1';
                 pcLd <= '1';
             end if;
-        end if;
-
-        if (curr_state = DE1) then
+        elsif (curr_state = DE1 and (
+            opcode = O_CMP or
+            opcode = O_AND or
+            opcode = O_ADD or
+            opcode = O_SUB or
+            opcode = O_LB or
+            opcode = O_LBI or
+            opcode = O_SBI
+        )) then
             decoEnable <= '1';
             decoSel <= "00";
             if (master_load_enable = '1') then
@@ -293,6 +299,12 @@ begin
                     accSel <= '1';
                     if (master_load_enable = '1') then
                         accLd <= '1';
+                    end if;
+                elsif (curr_state = DE2) then
+                    decoEnable <= '1';
+                    decoSel <= "01";
+                    if (master_load_enable = '1') then
+                        dmRead <= '1';
                     end if;
                 end if;
 

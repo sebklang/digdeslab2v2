@@ -88,7 +88,7 @@ component memory
     );
 end component;
 
-component mock_controller
+component proc_controller
     port (
         clk: in std_logic;
         resetn: in std_logic;
@@ -157,7 +157,7 @@ signal tempFlagVecZ: std_logic_vector(0 downto 0);
 
 begin
 
-    controller: mock_controller
+    controller: proc_controller
         port map(
             clk => clk,
             resetn => resetn,
