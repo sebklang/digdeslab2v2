@@ -46,7 +46,270 @@ begin
 
     next_state_process: process(curr_state, opcode)
     begin
-        
+        case(curr_state) is
+            when FE =>
+                next_state <= DE1;
+
+            when DE1 =>
+                if (opcode = O_NOOP) then
+                    next_state <= FE;
+                elsif (opcode = O_LBI) then
+                    next_state <= DE2;
+                elsif (opcode = O_SB or opcode = O_SBI) then
+                    next_state <= ME;
+                else
+                    next_state <= EX;
+                end if;
+
+            when DE2 =>
+                next_state <= EX;
+
+            when EX =>
+                next_state <= ME;
+
+            when ME =>
+                next_state <= FE;
+        end case;
+    end process;
+
+    output_process: process(curr_state, opcode, e_flag)
+    begin
+        if (curr_state = FE) then
+            pcSel <= '0';
+            if (master_load_enable = '1') then
+                imRead <= '1';
+                pcLd <= '1';
+            end if;
+        end if;
+
+        if (curr_state = DE1) then
+            decoEnable <= '1';
+            decoSel <= "00";
+            if (master_load_enable = '1') then
+                dmRead <= '1';
+            end if;
+        end if;
+
+        case(opcode) is
+            when O_NOOP =>
+                decoEnable <= '0';
+                dmRead <= '0';
+                dmWrite <= '0';
+                flagLd <= '0';
+                accLd <= '0';
+                dsLd <= '0';
+
+            when O_IN =>
+                dmRead <= '0';
+                dmWrite <= '0';
+                flagLd <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "11";
+                    accSel <= '1';
+                    if (master_load_enable = '1') then
+                        accLd <= '1';
+                    end if;
+                end if;
+
+            when O_DS =>
+                decoEnable <= '0';
+                dmRead <= '0';
+                dmWrite <= '0';
+                flagLd <= '0';
+                accLd <= '0';
+                if (curr_state = EX) then
+                    if (master_load_enable = '1') then
+                        dsLd <= '1';
+                    end if;
+                end if;
+
+            when O_JEQ =>
+                dmRead <= '0';
+                dmWrite <= '0';
+                flagLd <= '0';
+                accLd <= '0';
+                dsLd <= '0';
+                if (curr_state = EX and e_flag = '1') then
+                    decoEnable <= '1';
+                    decoSel <= "00";
+                    jAddrSel <= '0';
+                    pcSel <= '1';
+                    if (master_load_enable = '1') then
+                        pcLd <= '1';
+                    end if;
+                end if;
+
+            when O_JNE =>
+                dmRead <= '0';
+                dmWrite <= '0';
+                flagLd <= '0';
+                accLd <= '0';
+                dsLd <= '0';
+                if (curr_state = EX and e_flag = '0') then
+                    decoEnable <= '1';
+                    decoSel <= "00";
+                    jAddrSel <= '0';
+                    pcSel <= '1';
+                    if (master_load_enable = '1') then
+                        pcLd <= '1';
+                    end if;
+                end if;
+
+            when O_J =>
+                dmRead <= '0';
+                dmWrite <= '0';
+                flagLd <= '0';
+                accLd <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "00";
+                    jAddrSel <= '0';
+                    pcSel <= '1';
+                    if (master_load_enable = '1') then
+                        pcLd <= '1';
+                    end if;
+                end if;
+
+            when O_JA =>
+                dmRead <= '0';
+                dmWrite <= '0';
+                flagLd <= '0';
+                accLd <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "00";
+                    jAddrSel <= '1';
+                    pcSel <= '1';
+                    if (master_load_enable = '1') then
+                        pcLd <= '1';
+                    end if;
+                end if;
+
+            when O_CMP =>
+                dmWrite <= '0';
+                accLd <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "01";
+                    if (master_load_enable = '1') then
+                        flagLd <= '1';
+                    end if;
+                end if;
+
+            when O_NOT =>
+                decoEnable <= '0';
+                dmRead <= '0';
+                dmWrite <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    accSel <= '0';
+                    aluOp <= "00";
+                    if (master_load_enable = '1') then
+                        flagLd <= '1';
+                        accLd <= '1';
+                    end if;
+                end if;
+
+            when O_AND =>
+                dmWrite <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "01";
+                    accSel <= '0';
+                    aluOp <= "01";
+                    if (master_load_enable = '1') then
+                        flagLd <= '1';
+                        accLd <= '1';
+                    end if;
+                end if;
+            
+            when O_ADD =>
+                dmWrite <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "01";
+                    accSel <= '0';
+                    aluOp <= "10";
+                    if (master_load_enable = '1') then
+                        flagLd <= '1';
+                        accLd <= '1';
+                    end if;
+                end if;
+
+            when O_SUB =>
+                dmWrite <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "01";
+                    accSel <= '0';
+                    aluOp <= "11";
+                    if (master_load_enable = '1') then
+                        flagLd <= '1';
+                        accLd <= '1';
+                    end if;
+                end if;
+
+            when O_LB =>
+                dmWrite <= '0';
+                flagLd <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "01";
+                    accSel <= '1';
+                    if (master_load_enable = '1') then
+                        accLd <= '1';
+                    end if;
+                end if;
+
+            when O_SB =>
+                dmRead <= '0';
+                flagLd <= '0';
+                accLd <= '0';
+                dsLd <= '0';
+                if (curr_state = ME) then
+                    decoEnable <= '1';
+                    decoSel <= "00";
+                    if (master_load_enable = '1') then
+                        dmWrite <= '1';
+                    end if;
+                end if;
+
+            when O_LBI =>
+                dmWrite <= '0';
+                flagLd <= '0';
+                dsLd <= '0';
+                if (curr_state = EX) then
+                    decoEnable <= '1';
+                    decoSel <= "01";
+                    accSel <= '1';
+                    if (master_load_enable = '1') then
+                        accLd <= '1';
+                    end if;
+                end if;
+
+            when O_SBI =>
+                flagLd <= '0';
+                accLd <= '0';
+                dsLd <= '0';
+                if (curr_state = ME) then
+                    decoEnable <= '1';
+                    decoSel <= "01";
+                    if (master_load_enable = '1') then
+                        dmWrite <= '1';
+                    end if;
+                end if;
+
+            when others => --todo?
+        end case;
     end process;
 end behavioral;
 

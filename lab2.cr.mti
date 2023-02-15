@@ -1,13 +1,81 @@
-Z:/lab2/reg.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/reg.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/chacc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/chacc_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package chacc_pkg
+
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/mux2.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/mux2.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity mux2
+-- Compiling architecture dataflow of mux2
+
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/proc_bus.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/proc_bus.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package chacc_pkg
+-- Compiling entity proc_bus
+-- Compiling architecture behavioral of proc_bus
+
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/mock_controller.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/mock_controller.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package chacc_pkg
+-- Compiling entity mock_controller
+-- Compiling architecture Behavioral of mock_controller
+
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/rca.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/rca.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity rca
+-- Compiling architecture structural of rca
+-- Loading entity fa
+
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/proc_controller.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/proc_controller.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package chacc_pkg
+-- Compiling entity proc_controller
+-- Compiling architecture behavioral of proc_controller
+
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/fa.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/fa.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity fa
+-- Compiling architecture dataflow of fa
+
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/memory.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/memory.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity memory
+-- Compiling architecture behavioral of memory
+
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/reg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/reg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling entity reg
 -- Compiling architecture behavioral of reg
 
-} {} {}} Z:/lab2/alu_wRCA.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/alu_wRCA.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/alu_wRCA.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/alu_wRCA.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
@@ -18,16 +86,16 @@ QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
 -- Loading entity rca
 -- Loading entity cmp
 
-} {} {}} Z:/lab2/EDA322_processor.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/EDA322_processor.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/EDA322_processor.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/EDA322_processor.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling entity EDA322_processor
 -- Compiling architecture structural of EDA322_processor
 
-} {} {}} Z:/lab2/cmp.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/cmp.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/cmp.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/cmp.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
@@ -36,71 +104,12 @@ QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling entity cmp
 -- Compiling architecture structural of cmp
 
-} {} {}} Z:/lab2/tristate_buffer.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/tristate_buffer.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+} {} {}} C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/tristate_buffer.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/sebkl/Documents/DATATEKNIK/digdeslab2v2/tristate_buffer.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling entity tristate_buffer
 -- Compiling architecture behavioral of tristate_buffer
-
-} {} {}} Z:/lab2/chacc_pkg.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/chacc_pkg.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling package chacc_pkg
-
-} {} {}} Z:/lab2/mux2.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/mux2.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity mux2
--- Compiling architecture dataflow of mux2
-
-} {} {}} Z:/lab2/proc_bus.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/proc_bus.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package chacc_pkg
--- Compiling entity proc_bus
--- Compiling architecture behavioral of proc_bus
-
-} {} {}} Z:/lab2/mock_controller.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/mock_controller.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package chacc_pkg
--- Compiling entity mock_controller
--- Compiling architecture Behavioral of mock_controller
-
-} {} {}} Z:/lab2/rca.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/rca.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity rca
--- Compiling architecture structural of rca
--- Loading entity fa
-
-} {} {}} Z:/lab2/fa.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/fa.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity fa
--- Compiling architecture dataflow of fa
-
-} {} {}} Z:/lab2/memory.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/memory.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity memory
--- Compiling architecture behavioral of memory
 
 } {} {}}
