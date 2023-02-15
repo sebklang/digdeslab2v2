@@ -36,14 +36,6 @@ QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling entity cmp
 -- Compiling architecture structural of cmp
 
-} {} {}} Z:/lab2/tristate_buffer.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/tristate_buffer.vhd
-QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity tristate_buffer
--- Compiling architecture behavioral of tristate_buffer
-
 } {} {}} Z:/lab2/testbenchlab3.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/testbenchlab3.vhd
 QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
 -- Loading package STANDARD
@@ -94,6 +86,15 @@ QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling entity rca
 -- Compiling architecture structural of rca
 -- Loading entity fa
+
+} {} {}} Z:/lab2/proc_controller.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/proc_controller.vhd
+QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package chacc_pkg
+-- Compiling entity proc_controller
+-- Compiling architecture behavioral of proc_controller
 
 } {} {}} Z:/lab2/fa.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none Z:/lab2/fa.vhd
 QuestaSim-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021

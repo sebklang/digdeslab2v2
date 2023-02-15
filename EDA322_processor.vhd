@@ -2,8 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity EDA322_processor is
-    generic (dInitFile : string := "d_memory_lab2.mif";
-             iInitFile : string := "i_memory_lab2.mif");
+    generic (dInitFile : string := "d_memory_lab3.mif";
+             iInitFile : string := "i_memory_lab3.mif");
     port(
         clk                : in  std_logic;
         resetn             : in  std_logic;
@@ -77,7 +77,7 @@ end component;
 component memory
     generic (DATA_WIDTH : integer := 8;
              ADDR_WIDTH : integer := 8;
-             INIT_FILE : string := "i_memory_lab2.mif");
+             INIT_FILE : string := "i_memory_lab3.mif");
     port (
         clk     : in std_logic;
         readEn    : in std_logic;
@@ -192,7 +192,10 @@ begin
         );
 
     instructionMemory: memory
-        generic map(DATA_WIDTH => 12)
+        generic map(
+            DATA_WIDTH => 12,
+            INIT_FILE => "i_memory_lab3.mif"
+        )
         port map(
             clk,
             readEn => imRead_signal,
@@ -204,7 +207,10 @@ begin
     opcode_signal <= imDataOut_signal(11 downto 8);
     
     dataMemory: memory
-        generic map(DATA_WIDTH => 8)
+        generic map(
+            DATA_WIDTH => 8,
+            INIT_FILE => "d_memory_lab3.mif"
+        )
         port map(
             clk,
             readEn => dmRead_signal,

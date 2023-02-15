@@ -11,5 +11,5 @@ end tristate_buffer;
 
 architecture behavioral of tristate_buffer is
 begin
-    y <= x when (en = '0') else (others => 'Z');
+    y <= x when (en = '1'); --else (others => 'Z');
 end behavioral;

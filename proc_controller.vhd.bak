@@ -300,7 +300,6 @@ begin
                     if (master_load_enable = '1') then
                         accLd <= '1';
                     end if;
-                end if;
                 elsif (curr_state = DE2) then
                     decoEnable <= '1';
                     decoSel <= "01";

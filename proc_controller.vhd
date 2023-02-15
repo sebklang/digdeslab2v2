@@ -320,7 +320,7 @@ begin
                     end if;
                 end if;
 
-            when others => --todo?
+            when others => -- do nothing
         end case;
     end process;
 end behavioral;

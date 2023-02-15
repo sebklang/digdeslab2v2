@@ -8,7 +8,7 @@ use std.textio.ALL;
 entity memory is
     generic (DATA_WIDTH : integer := 8;
              ADDR_WIDTH : integer := 8;
-             INIT_FILE : string := "i_memory_lab2.mif");
+             INIT_FILE : string := "i_memory_lab3.mif");
     port (
         clk     : in std_logic;
         readEn    : in std_logic;
@@ -41,14 +41,14 @@ end function;
 signal store : MEMORY_ARRAY := init_memory_wfile(INIT_FILE);
 
 begin  
-    Read0: process(clk, readEn, address)
+    Read0: process(clk)
     begin
         if (rising_edge(clk) and readEn = '1') then
 	    dataOut <= store(to_integer(unsigned(address)));           
         end if;
     end process Read0;
 
-    Write0: process(clk, writeEn, address, dataIn)
+    Write0: process(clk)
     begin
         if (rising_edge(clk) and writeEn = '1') then
 	    store(to_integer(unsigned(address))) <= dataIn;           
